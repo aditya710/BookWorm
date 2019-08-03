@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="library.css">
+	
+</head>
+<body>
+    <!-- Header -->
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <i class="fa fa-book"></i>
+            <h2 class="white-custom">Welcome to Campus Library</h2>
+        </div>
+	</div>
+	
+	<!--Navbars-->
+    <div class="container-fluid container-fluid-custom container-fluid-bgcolor" id="nav-header" onscroll="myFunction()">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9 col-sm-9-custom">
+						<nav class="navbar navbar-expand-lg navbar-custom-1" id="navbar-default">
+							<button class="navbar-toggler"> </button>
+							<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav">
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Books </a>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-book.html">New</a>
+										<a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-book.html">Update</a>
+										<a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-book.html">Delete</a>
+										<a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-book.html">Search</a>
+									</div>
+								</li>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> User </a>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-user.html">New</a>
+										<a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-user.html">Update</a>
+										<a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-user.html">Delete</a>
+										<a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-user.html">Search</a>
+									</div>
+								</li>
+							   <li class="nav-item">
+								   <a class="nav-link" href="http://localhost/bookworm-middleware/UI/checkIn-checkOut.html">Check-in/Check-out</a>
+							   </li>
+							   <li class="nav-item">
+									<a class="nav-link" href="http://localhost/bookworm-middleware/UI/reservation.html">Book Reservation</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="http://localhost/bookworm-middleware/UI/manage.html"> Manage </a>
+								</li>
+								<li class="nav-item">
+										<a class="nav-link" href="http://localhost/bookworm-middleware/UI/aboutUs.html">About Us</a>
+								</li>
+							 </ul>
+						 </nav>
+					 </div>
+				<div class="col-sm-3 col-sm-3-custom">
+					<nav class="navbar navbar-expand-lg navbar-custom-2" id="navbar-default">
+						<ul class="navbar-nav">
+							<li class="nav-item logout-custom">
+								<a class="nav-link disabled" href="#">Logout</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+
+    <!--slider-->
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+	<!-- Wrapper for slides -->
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="images/Image-2.png" alt="lib-pics" width="700" height="500">
+				<div class="header-text hidden-xs">
+					<div class="col-md-12 text-center home-page-custom">
+						<h5 class="text-color"><i>"Reading is essential for those who seek to rise above the ordinary"</i></h5>
+					</div>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img src="images/Image-3.png" alt="lib-pics" width="1400" height="500">
+				<div class="header-text hidden-xs">
+					<div class="col-md-12 text-center home-page-custom">
+						<h5 class="text-color"><i>“Today a reader, tomorrow a leader.”</i></h5>
+					</div>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img src="images/Image-5.png" alt="lib-pics" width="700" height="500">
+				<div class="header-text hidden-xs">
+					<div class="col-md-12 text-center home-page-custom">
+						<h5 class="text-color"><i>"You absolutely have to know is the location of library."</i></h5>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Left and right controls -->
+		<a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+			<span class="carousel-control-prev-icon"></span>
+		</a>
+		<a class="carousel-control-next" href="#myCarousel" data-slide="next">
+			<span class="carousel-control-next-icon"></span>
+		</a>		
+	</div>
+	
+	
+	
+	<!-- Footer -->
+	<footer>
+		<p class="p-footer mt-3">@2019 All rights resevered by Library system</p>
+	</footer> 
+</body>
+</html>

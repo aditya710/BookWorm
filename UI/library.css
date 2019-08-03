@@ -1,0 +1,434 @@
+.jumbotron.jumbotron-fluid {
+    background-color: #F57C00;
+    padding: 15px;
+    margin: 0px;
+    
+    width:100%;
+    z-index: 999;
+}
+i.fa.fa-book {
+    color: white;
+    font-size: 30px;
+    display: inline;
+}
+.white-custom{
+    color: white;
+    padding: 20px;
+    margin: 0px;
+    display: inline;
+}
+.login-form {
+    width: 40%;}
+/*login from */
+/*.container-fluid-image-custom {
+
+    margin: 0;
+    background-image: url(images/image4.png);
+    height: 595px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}*/
+.carousel-inner img {
+    width: 100%;
+    height: 595px;
+}
+.carousel {
+    position: relative;
+}
+.login-custom{
+    position: absolute;
+    background-color: rgb(0,0,0,0.5);
+    margin: 0 auto;
+	flex:auto;
+    padding: 30px;
+    top: 90px;
+    left: 508px;
+    width: 35%;
+}
+.outer-line{
+    position: absolute;
+    width: 83%;
+    height: 63%;
+    border: 2px solid #040404;
+    display: flex;
+    justify-content: center;
+    /* left: 15px; */
+    right: 411px;
+    bottom: 115px;
+    background: black;
+    opacity: .4;
+}
+.text-color{
+    color: white;
+}
+.login-button{
+    background: transparent;
+    border-color: white;
+    border-radius: 0;
+}
+
+/* footer */
+footer{
+    background-color: black;
+    padding: 2px;
+    
+}
+.p-footer {
+    color: white;
+    text-align: center;
+}
+.footer-custom{
+    margin-top: 20%;
+}
+/* ADD Books CSS */
+
+/* navbar */
+
+a.nav-link {
+    color: white;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+    font-weight: 600;
+    float: right;
+    padding-right: 35px;
+    padding-left: 12px;
+}
+.nav-link {
+    padding: 0px;
+}
+li.nav-item.logout-custom {
+    float: left;
+    padding-left: 110px;
+}
+
+li.nav-item.active {
+    background-color: #F57C00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+li.nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+li.nav-item1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+li.nav-item:hover {
+    background-color: #F57C00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.navbar-custom-1{
+    padding: 0px;
+}
+.fixedHeaderClass{
+    position:fixed;
+    top:0px;
+    z-index: 1;
+    /*box-shadow: 0px 0px 9px 0px;*/
+    transition-timing-function: ease;
+    width:100%;
+}
+.container-fluid-custom{
+    display: flex;
+    justify-content: center;
+}
+.col-sm-9-custom{
+    padding: 0px;
+}
+.col-sm-3-custom{
+    padding: 0px;
+}
+.navbar-custom-2{
+    padding: 0.5rem 6rem;
+}
+.nav-link.disabled {
+    color: #dbdcdd;
+}
+input[class=form-control]:focus {
+    border: 3px solid #FF9800;
+}
+input[type=date]:focus {
+    border: 3px solid #FF9800;
+}
+select[name=type]:focus{
+    border: 3px solid #FF9800;
+}
+textarea[class=form-control]:focus {
+    border: 3px solid #FF9800;
+}
+button[type=submit]:focus{
+    border: 3px solid #F57C00;
+}
+.container-custom{
+    padding-right: 227px;
+}
+.add-book-custom{
+    max-width: 100%;
+    margin: 0 auto;
+	flex:auto;
+	padding: 5px;
+}
+.add-book-custom{
+    margin-top: 20px;
+}
+.btn-lookup{
+    margin-top: 92px;
+    margin-left: 20px;
+}
+.img-lookup-custom {
+    width: 50%;
+    height: 20%;
+    margin-top: 35px;
+    
+    float: right;
+}
+.container-fluid-bgcolor{
+    background-color: #FF9800;
+}
+.btn-custom{
+    background-color: #FF9800;
+    color: white;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 15px;
+}
+.btn-custom:hover{
+    color: white;
+    background-color: #F57C00;
+}
+div#nav-header {
+    padding-top: 0px;
+    background-color: #ff9800;
+}
+
+/* checkin-checkout */
+label.radio-inline.mt-3.mb-3 {
+    padding-right: 20px;
+    margin-right: 15px;
+}
+.container-fluid-checkInOut-custom {
+    padding-top: 75px;
+    padding-bottom: 75px;
+}
+
+/* search page */
+.container-fluid-search-custom{
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+input[type=search]:focus {
+    border: 3px solid #FF9800;
+}
+/* reservation page */
+.form-group-custom{
+    width: 41%;
+}
+.padding-custom {
+    padding-top: 50px;
+    padding-bottom: 70px;
+}
+h2.padding-bottom-custom {
+    padding-bottom: 40px;
+}
+h2.pick-up {
+    margin-top: 50px;
+    margin-bottom: 45px;
+}
+
+/* search list */
+
+ol#book-list {
+    list-style-type: none;
+}
+
+/* about us */
+.about-us{
+    overflow: hidden;
+    position: relative;
+}
+.image-custom-left img{
+    float: left;
+    border: 3px solid black;
+    padding: 0px;
+}
+.image-custom-right img{
+    float: right;
+    border: 3px solid black;
+    
+}
+    .display-inline-right {
+        /* display: inline; */
+        text-align: right;
+        position: absolute;
+        clear: both;
+        top: 35px;
+        right: 248px;
+    }
+.display-inline-left{
+    text-align: left;
+    position: absolute;
+    clear: both;
+    top: 35px;
+    left: 250px;
+}
+p.desg-right {
+    text-align: left;
+    position: absolute;
+    clear: both;
+    top: 72px;
+    right: 516px;
+}
+p.desg-right-p {
+    text-align: left;
+    position: absolute;
+    clear: both;
+    top: 72px;
+    right: 550px;
+}
+p.desg-left {
+    text-align: right;
+    position: absolute;
+    clear: both;
+    top: 72px;
+    left: 513px;
+}
+
+
+/* navigation dropdown */
+
+a.dropdown-item:hover {
+    background-color: #FF9800;
+    color: #fff;
+}
+
+/* delete book */
+div#delete-book-left{
+    float: left;
+    padding: 40px;
+}
+div#delete-book-right {
+    float: right;
+    padding: 40px;
+}
+/* delete user */
+.footer-user-custom{
+    margin-top: 10%;
+}
+
+/* home-page */
+.home-page{
+    width: 100%;
+}
+.home-page-custom{
+    position: absolute;
+    background-color: rgb(0,0,0,0.5);
+    margin: 0 auto;
+    flex: auto;
+    padding: 50px;
+    top: 200px;
+    left: 410px;
+    width: 46%;
+}
+
+/* manage */
+.report-custom{
+    text-align: left;
+}
+.padding-right{
+    padding-right: 15px;
+}
+.padding-right-left{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.report-custom-left {
+    
+    padding-top: 0px;
+}
+.report-custom-right {
+    float: right;
+    width: 100%;
+    padding-top: 15px;
+    /* margin-left: 117px; */
+    margin-right: -127px;
+}
+h2.p-3.mt-3.mb-3.report-custom-duedate {
+    margin-left: 110px;
+}
+.table-manage-custom{
+    width: 100%;
+}
+.table-manage-custom-1 td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+.btn-custom-1{
+    margin-top: 2%;
+}
+.input-group.input-daterange {
+    /* display: none; */
+    display: inline;
+}
+input#start{
+    width: 50%;
+}
+input#end{
+    width: 50%;
+}
+
+
+.search-footer{
+    margin-top: 27%;
+}
+
+.delete-footer{
+    margin-top: 5%;
+}
+.delete-user-footer{
+    margin-top: 12%;
+}
+.update-book-footer{
+    margin-top: 14%;
+}
+.check-footer{
+    margin-top: 5%;
+}
+.res-footer{
+    margin-top: 3%;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #FF9800;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 0.5s linear infinite; /* Safari */
+    animation: spin 0.5s linear infinite;
+    float: right;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

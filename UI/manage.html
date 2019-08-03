@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Manage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="library.css">
+  <script type="text/javascript" src="library.js"></script>
+
+    <script>
+
+        $(function() {
+            var xmlhttp = new XMLHttpRequest();
+            var theUrl = "http://localhost/bookworm-middleware/code/v1/get_due_books.php";
+            // console.log(theUrl);
+            // alert("wait");
+
+            xmlhttp.onreadystatechange = function () {
+
+                if (this.readyState == 4 && this.status == 200) {
+                    obj = JSON.parse(this.response);
+                    console.log(obj);
+                    // alert(obj.message);
+                    // location.reload();
+
+                    $('#due_today').empty();
+                    row = (' <tr class="table-manage-custom-1">\n' +
+                        '                                <th>Book Id</th>\n' +
+                        '                                <th>Book</th>\n' +
+                        '                                <th>Borrowed By</th>\n' +
+                        '                            </tr>');
+                    $('#due_today').append(row);
+
+                    obj.data.forEach(element =>{
+
+                        row = ('<tr class="table-manage-custom-1"><td>'+element.id+'</td><td>'+element.title+'</td><td>'+element.firstname+' ' + element.lastname +'</td></tr>');
+                        $('#due_today').append(row);
+                    });
+                }
+            }
+            xmlhttp.open("GET", theUrl,true);
+            xmlhttp.setRequestHeader("Content-Type", "application/json");
+            xmlhttp.send();
+
+            $("#send_reminder").click(function () {
+                var xmlhttp1 = new XMLHttpRequest();
+                var theUrl = "http://localhost/bookworm-middleware/code/v1/send_due_books_reminders.php";
+
+                xmlhttp1.onreadystatechange = function () {
+                    obj = JSON.parse(this.response);
+                    alert(obj.message);
+
+                }
+                xmlhttp1.open("GET", theUrl,false);
+                xmlhttp1.setRequestHeader("Content-Type", "application/json");
+                xmlhttp1.send();
+
+            });
+
+            $("#report").click(function () {
+               var startDate = document.getElementById("start").value;
+               var endDate = document.getElementById("end").value;
+                var xmlhttp1 = new XMLHttpRequest();
+                var theUrl = "http://localhost/bookworm-middleware/code/v1/report_most_borrowed_books.php?start_date="+startDate+"&end_date="+endDate;
+
+                xmlhttp1.onreadystatechange = function () {
+                    obj = JSON.parse(this.response);
+                    console.log(obj);
+                    // alert(obj.message);
+
+                    var modal = document.getElementById("myModal");
+                    modal.style.display = "block";
+                    var row;
+
+
+
+
+                            $('#cp_table').empty();
+                            row = ('<tr><td><b>Title<b></td><td><b>Times Borrowed</b></td></tr>');
+                            $('#cp_table').append(row);
+                            obj.data.forEach(book =>{
+
+                                row = ('<tr><td>'+book.title+'</td><td>'+book.borrow_count+'</td></tr>');
+                                $('#cp_table').append(row);
+                            });
+
+
+
+
+                }
+                xmlhttp1.open("GET", theUrl,false);
+                xmlhttp1.setRequestHeader("Content-Type", "application/json");
+                xmlhttp1.send();
+
+
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <div class="jumbotron jumbotron-fluid jumbotron-fluid-bgcolor-custom">
+        <div class="container">
+            <i class="fa fa-book"></i>
+            <h2 class="white-custom">Welcome to Campus Library</h2>
+        </div>
+    </div>
+
+    <!--Navbars-->
+    <div class="container-fluid container-fluid-custom container-fluid-bgcolor" id="nav-header" onscroll="myFunction()">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-sm-9-custom">
+                <nav class="navbar navbar-expand-lg navbar-custom-1" id="navbar-default">
+                    <button class="navbar-toggler"> </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Books </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-book.html">New</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-book.html">Update</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-book.html">Delete</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-book.html">Search</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> User </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-user.html">New</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-user.html">Update</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-user.html">Delete</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-user.html">Search</a>
+                            </div>
+                        </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="http://localhost/bookworm-middleware/UI/checkIn-checkOut.html">Check-in/Check-out</a>
+                       </li>
+                       <li class="nav-item">
+                            <a class="nav-link" href="http://localhost/bookworm-middleware/UI/reservation.html">Book Reservation</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="http://localhost/bookworm-middleware/UI/manage.html"> Manage </a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="http://localhost/bookworm-middleware/UI/aboutUs.html">About Us</a>
+                        </li>
+                     </ul>
+                 </nav>
+             </div>
+        <div class="col-sm-3 col-sm-3-custom">
+            <nav class="navbar navbar-expand-lg navbar-custom-2" id="navbar-default">
+                <ul class="navbar-nav">
+                    <li class="nav-item logout-custom">
+                        <a class="nav-link disabled" href="#">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    </div>
+    </div>
+
+     <!--ADD User form-->
+    <div class="container-fluid">
+        <div class="container container-custom">
+            <div class="row justify-content-center">
+                <div class="col-sm-6">
+                    <h2 class="p-3 mt-3 mb-3 report-custom">Report</h2>
+                    <div class="report-custom-left">
+                        
+                        <div class=" input-group input-daterange">
+                            <label for="start" class="mt-3 mb-3 padding-right">Date Range</label>
+                            <input type="date" id="start" class="form-control form-control-width mt-3 mb-3 " value="2019-04-01" min="2015-01-01" max="2022-01-01">
+                            <div class="input-group-addon mt-3 mb-3 padding-right-left">to</div>
+                            <input type="date" id="end" class="form-control form-control-width mt-3 mb-3 " value="2019-06-31" min="2015-01-01" max="2022-01-01">
+                            
+                        </div>
+                        <button type="submit" class="btn btn-custom btn-custom-1  mt-3 mb-3">Clear</button>
+                        <button type="submit" data-toggle="modal" data-target="#myModal" id="report" class="btn btn-custom btn-custom-1 mt-3 mb-3">Submit</button>
+                        
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <form>
+                    <h2 class="p-3 mt-3 mb-3 report-custom-duedate">Books due today!</h2>
+                    <div class="report-custom-right">
+                        <table id="due_today" class="table-manage-custom">
+                            <tr class="table-manage-custom-1">
+                                <th>Book Id</th>
+                                <th>Book</th>
+                                <th>Borrowed By</th>
+                            </tr>
+                            <tr class="table-manage-custom-1">    
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <button id="send_reminder" type="submit" class="btn btn-custom btn-custom-1 mt-3 mb-3">Send Reminder</button>
+                    </div>
+                    </form>
+                 </div>
+            </div>
+        </div>  
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Most Borrowed Books</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <table id="cp_table" class="table table-borderless">
+                        <tbody id="copies_table1">
+<!--                        <tr>-->
+<!--                            <td><b>Copies</b></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td><b>Id</b></td>-->
+<!--                            <td><b>Available</b></td>-->
+<!--                        </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <footer class="footer-custom">
+        <p class="p-footer mt-3">@2019 All rights resevered by Library system</p>
+    </footer>
+        
+</body>
+</html>

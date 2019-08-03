@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Update user</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="library.css">
+  <script type="text/javascript" src="library.js"></script>
+    <script>
+
+        $(function() {
+            $("#submit").click(function () {
+                var id = document.getElementById("id").value;
+                var firstname = document.getElementById("firstname").value;
+                var lastname =document.getElementById("lastname").value;
+                var emailid = document.getElementById("emailid").value;
+                var dob= document.getElementById("dob").value;
+                var type=document.getElementById("type").selectedIndex;
+                var addressline1=document.getElementById("addressline1").value;
+                var addressline2=document.getElementById("addressline2").value;
+                var city=document.getElementById("city").value;
+                var state=document.getElementById("state").value;
+                var pincode=document.getElementById("pincode").value;
+                var country=document.getElementById("country").value;
+                var phone=document.getElementById("phone").value;
+
+                var xmlhttp = new XMLHttpRequest();
+                var theUrl = "http://localhost/bookworm-middleware/code/v1/update_user.php?id="+id
+                                +"&firstname="+firstname
+                                +"&lastname="+lastname
+                                +"&email="+emailid
+                                +"&phone="+phone
+                                +"&user_type="+type
+                                +"&address_line1="+addressline1
+                                +"&address_line2="+addressline2
+                                +"&city="+city
+                                +"&state="+state
+                                +"&pincode="+pincode
+                                +"&country="+country
+                                +"&dob="+dob;
+
+
+                xmlhttp.onreadystatechange = function () {
+
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log(this.response);
+                        obj = JSON.parse(this.response);
+                        alert(obj.message);
+                        location.reload();
+
+                    }
+
+                }
+                xmlhttp.open("GET", theUrl, false);
+                xmlhttp.setRequestHeader("Content-Type", "application/json");
+                xmlhttp.send();
+
+            });
+            return false;
+        });
+
+        function getUserDetails(str) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.response);
+                    obj = JSON.parse(this.response);
+
+                    document.getElementById("firstname").value = obj.data.firstname;
+                    document.getElementById("lastname").value = obj.data.lastname;
+                    document.getElementById("emailid").value = obj.data.email;
+                    document.getElementById("dob").value = obj.data.dob;
+                    document.getElementById("type").selectedIndex = obj.data.user_type;
+                    document.getElementById("addressline1").value = obj.data.address_line1;
+                    document.getElementById("addressline2").value = obj.data.address_line2;
+                    document.getElementById("city").value = obj.data.city;
+                    document.getElementById("state").value = obj.data.state;
+                    document.getElementById("pincode").value = obj.data.pincode;
+                    document.getElementById("country").value = obj.data.country;
+                    document.getElementById("phone").value = obj.data.phone;
+
+                }
+            };
+            xmlhttp.open("GET", "http://localhost/bookworm-middleware/code/v1/get_user?user_id=" + str, true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send();
+        }
+
+    //    http://localhost/bookworm-middleware/code/v1/update_user.php?id=10001&firstname=Kartikey&lastname=Tripathi&email=kartikey.tripathi@stud.hochschule-heidelberg.de&phone=4915123456784&user_type=1&address_line1=828, Bonhoeffer Strasse&address_line2=Weiblingen&city=Heidelberg&state=BW&pincode=69129&country=Germany&dob=1993-01-14
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <div class="jumbotron jumbotron-fluid jumbotron-fluid-bgcolor-custom">
+        <div class="container">
+            <i class="fa fa-book"></i>
+            <h2 class="white-custom">Welcome to Campus Library</h2>
+        </div>
+    </div>
+
+    <!--Navbars-->
+    <div class="container-fluid container-fluid-custom container-fluid-bgcolor" id="nav-header" onscroll="myFunction()">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-sm-9-custom">
+                <nav class="navbar navbar-expand-lg navbar-custom-1" id="navbar-default">
+                    <button class="navbar-toggler"> </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Books </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-book.html">New</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-book.html">Update</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-book.html">Delete</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-book.html">Search</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> User </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-user.html">New</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-user.html">Update</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-user.html">Delete</a>
+                                <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-user.html">Search</a>
+                            </div>
+                        </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="http://localhost/bookworm-middleware/UI/checkIn-checkOut.html">Check-in/Check-out</a>
+                       </li>
+                       <li class="nav-item">
+                            <a class="nav-link" href="http://localhost/bookworm-middleware/UI/reservation.html">Book Reservation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://localhost/bookworm-middleware/UI/manage.html"> Manage </a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="http://localhost/bookworm-middleware/UI/aboutUs.html">About Us</a>
+                        </li>
+                     </ul>
+                 </nav>
+             </div>
+        <div class="col-sm-3 col-sm-3-custom">
+            <nav class="navbar navbar-expand-lg navbar-custom-2" id="navbar-default">
+                <ul class="navbar-nav">
+                    <li class="nav-item logout-custom">
+                        <a class="nav-link disabled" href="#">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    </div>
+    </div>
+
+     <!--ADD User form-->
+    <div class="container-fluid">
+        <div class="container container-custom">
+                <h2 class="mt-3 pt-3">Update User</h2>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="add-book-custom">
+                        <form>
+                            <div class="form-group">
+                                <label for="id">User Id</label>
+                                <input type="text" class="form-control mt-3 mb-3" onchange="getUserDetails(this.value);" id="id" name="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname">First name</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="firstname" name="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Last name</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="lastname" name="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="emailid">Email</label>
+                                <input type="email" class="form-control mt-3 mb-3" id="emailid" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="phone" name="phone">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dob">DOB</label>
+                                <input type="date" class="mt-3 mb-3" id="dob" name="dob" min="1940-01-01" max="2018-01-01">
+                            </div>
+                            <select id="type" name="type" class="custom-select mb-3">
+                                <option selected>User type</option>
+                                <option value="1">Student</option>
+                                <option value="2">Professor</option>
+                                <option value="3">Library staff</option>
+                            </select>
+                            <div class="form-group">
+                                <label for="addressline1">Address line 1</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="addressline1" name="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="addressline2">Address line 2</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="addressline2" name="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="city" name="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="state" name="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="country" name="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="pincode">Pincode</label>
+                                <input type="number" class="form-control mt-3 mb-3" id="pincode" name="text">
+                            </div>
+                            <button type="reset" class="btn btn-custom mt-3 mb-3">Clear</button>
+                            <button id="submit" type="submit" class="btn btn-custom mt-3 mb-3">Update</button>
+                         </form>
+                     </div>
+                 </div>
+                 <div class="col-sm-3">
+                    
+                 </div>
+                 <div class="col-sm-3">
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Footer -->
+
+    <footer>
+        <p class="p-footer mt-3">@2019 All rights resevered by Library system</p>
+    </footer>
+        
+</body>
+</html>

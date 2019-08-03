@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="library.css">
+  <script type="text/javascript" src="library.js"></script>
+  <script>
+      var obj;
+        function searchContent(val){
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "http://localhost/bookworm-middleware/code/v1/get_books.php?like=" + val, true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send();
+        
+            xmlhttp.onreadystatechange = function () {
+
+                if (this.readyState == 4 && this.status == 200) {   
+                    $('#book-list').empty();
+                    obj = JSON.parse(this.response);
+                    console.log(obj);
+                    obj.data.forEach(element => {
+                      //  console.log(element.title);
+                    //   $('#book-list').append($('<li>').append($('<span>')).text(element.title).attr('id',element.isbn));
+                    //     });
+                    $("#book-list").append('<li class="search" data-toggle="modal" data-target="#myModal" onclick="getDetails('+element.isbn+')" ><a href="#">'+element.title+'</a></li>');
+                                       
+                    });
+                }
+            }
+    
+        }
+        function getDetails(isbn){
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            var row;
+            obj.data.forEach(element => {
+               if(element.isbn == isbn){
+                   var copies = element.copies;
+                   
+                   document.getElementById("book_name").value = element.title;
+
+                   $('#myModal').find('#book_name').html(element.title);
+                   $('#myModal').find('#author').html(element.authors);
+                   $('#myModal').find('#isbn').html(element.isbn);
+                   $('#myModal').find('#publication').html(element.publication);
+                   $('#cp_table').empty();
+                   row = ('<tr><td><b>Book Id<b></td><td><b>Available</b></td><td><b>Locked</b></td><td><b>Location</b></td></tr>');
+                   $('#cp_table').append(row);
+                   copies.forEach(book =>{
+                       var available = null;
+                       if(book.is_borrowed == 0){
+                           available = "Yes";
+                       }else{
+                           available = "No";
+                       }
+                       var locked = null
+                       if(book.is_locked == 0){
+                           locked = "No";
+                       }else{
+                           locked = "Yes";
+                       }
+                       loc_fetched = book.location;
+                       if(book.location == null){
+                           loc_fetched = "Not Available";
+                       }
+                       row = ('<tr><td>'+book.book_id+'</td><td>'+available+'</td><td>'+locked+'</td><td>'+loc_fetched+'</td></tr>');
+                       $('#cp_table').append(row);
+                   });
+
+               }
+            });
+        }
+
+  </script>
+</head>
+<body>
+    <!-- Header -->
+    <div class="jumbotron jumbotron-fluid jumbotron-fluid-bgcolor">
+        <div class="container">
+            <i class="fa fa-book"></i>
+            <h2 class="white-custom">Welcome to Campus Library</h2>
+        </div>
+    </div>
+
+    <!--Navbars-->
+    <!--Navbars-->
+    <div class="container-fluid container-fluid-custom container-fluid-bgcolor" id="nav-header" onscroll="myFunction()">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9 col-sm-9-custom">
+                        <nav class="navbar navbar-expand-lg navbar-custom-1" id="navbar-default">
+                            <button class="navbar-toggler"> </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Books </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-book.html">New</a>
+                                        <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-book.html">Update</a>
+                                        <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-book.html">Delete</a>
+                                        <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-book.html">Search</a>
+                                    </div>
+                               </li>
+                               <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> User </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-user.html">New</a>
+                                        <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-user.html">Update</a>
+                                        <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-user.html">Delete</a>
+                                        <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-user.html">Search</a>
+                                    </div>
+                               </li>
+                               <li class="nav-item">
+                                   <a class="nav-link" href="http://localhost/bookworm-middleware/UI/checkIn-checkOut.html">Check-in/Check-out</a>
+                               </li>
+                               
+                               <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/bookworm-middleware/UI/reservation.html">Book Reservation</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/bookworm-middleware/UI/manage.html"> Manage </a>
+                                </li>
+                                <li class="nav-item">
+                                        <a class="nav-link" href="http://localhost/bookworm-middleware/UI/aboutUs.html">About Us</a>
+                                </li>
+                             </ul>
+                            </div>
+                         </nav>
+                     </div>
+                <div class="col-sm-3 col-sm-3-custom">
+                    <nav class="navbar navbar-expand-lg navbar-custom-2" id="navbar-default">
+                        <ul class="navbar-nav">
+                            <li class="nav-item logout-custom">
+                                <a class="nav-link disabled" href="#">Logout</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--search-->
+    <div class="container-fluid container-fluid-search-custom">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <form >
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col">
+                                <input class="form-control form-control-lg form-control-borderless mt-3 mb-3" type="search" oninput="searchContent(this.value)"
+                                placeholder="Search by ISBN, Title, Authors..">
+                            </div>
+                            <!--end of col-->
+                            <div class="col-auto">
+                                <button class="btn btn-lg btn-custom" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                            <!--end of col-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+    
+    <!-- serach content-->
+    <div class="container-fluid container-fluid-search-custom">
+        <div class="container">
+            <div class="search-content">
+                <h2>Available books</h2>
+                <dl id="seacrhResult">
+                    <ol id="book-list">
+                      
+                    </ol>
+                </dl>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Book information</h4>
+            </div>
+            <div class="modal-body">
+
+              <table id="cp_tab" class="table table-borderless">
+                    <tbody id="copies_table">
+                        <tr>
+                            <td><b>Book name</b></td>
+                            <td id="book_name"></td>
+                        </tr>
+                        <tr> 
+                            <td><b>Author</b></td>
+                            <td id="author"></td>
+                        </tr>
+                        <tr>
+                            <td><b>ISBN</b></td>
+                            <td id="isbn"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Publication</b></td>
+                            <td id="publication"></td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td><b>Copies</b></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td><b>Id</b></td>-->
+<!--                            <td><b>Available</b></td>-->
+<!--                        </tr>-->
+
+              </table>
+              <table id="cp_table" class="table table-borderless">
+                  <tbody id="copies_table1">
+                  <tr>
+                      <td><b>Copies</b></td>
+                  </tr>
+                  <tr>
+                      <td><b>Id</b></td>
+                      <td><b>Available</b></td>
+                  </tr>
+                  </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>    
+        </div>
+      </div>
+    
+    <!-- Footer -->
+
+            <footer class="search-footer">
+                <p class="p-footer mt-3">@2019 All rights reserved by Library system</p>
+            </footer>
+        
+</body>
+</html>

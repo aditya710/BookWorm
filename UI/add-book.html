@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Add Book</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="library.css">
+  <script type="text/javascript" src="library.js"></script>
+    <script>
+        $(function() {
+            $("#submit").click(function() {
+                // validate and process form here
+                var e_author = localStorage.getItem("eAuthors");
+                var n_author = localStorage.getItem("nAuthors");
+                var array_existing  = e_author.split(",");
+                var array_new  = n_author.split(",");
+                var inputExisting = [];
+                var inputNew = [];
+                array_existing.forEach(function (author) {
+                    if(author.length > 0){
+                        inputExisting.push(author);
+                    }
+                });
+                array_new.forEach(function (author) {
+                    if(author.length > 0){
+                        inputNew.push(author);
+                    }
+                });
+                var strExisting = inputExisting.join(",");
+                var strNew = inputNew.join(",");
+
+                document.getElementById("e_author").value = strExisting;
+                document.getElementById("n_author").value = strNew;
+                localStorage.removeItem("eAuthors");
+                localStorage.removeItem("nAuthors");
+                // this.form.submit();
+
+                var type = document.getElementById("type").value;
+                var    title = document.getElementById("title").value;
+                var   subtitle = document.getElementById("subtitle").value;
+                var   isbn = document.getElementById("isbn").value;
+                var   publication = document.getElementById("publication").value;
+                var  description = document.getElementById("discription").value;
+                var   published_date = document.getElementById("start").value;
+                var   language = document.getElementById("language").value;
+                var   thumbnail = document.getElementById("thumbnail").src;
+                var   n_author = strNew;
+                var   e_author = strExisting;
+                var   cnt = document.getElementById("cnt").value;
+                var page_count = document.getElementById("page_count").value;
+
+                var xmlhttp = new XMLHttpRequest();
+                var theUrl = "http://localhost/bookworm-middleware/code/v1/add_book.php?type="+type+"&title="+title+"&subtitle="+subtitle+"&isbn="+isbn+
+                                    "&publication="+publication+"&description="+description+"&published_date="+published_date+"&language="+language+
+                                    "&thumnail="+thumbnail+"&page_count="+page_count+
+                                    "&n_author="+n_author+"&e_author="+e_author+"&cnt="+cnt;
+                console.log(theUrl);
+                // alert("wait");
+
+                xmlhttp.onreadystatechange = function () {
+
+                    if (this.readyState == 4 && this.status == 200) {
+                        obj = JSON.parse(this.response);
+                        alert(obj.message);
+                        location.reload();
+                    }
+                }
+                xmlhttp.open("GET", theUrl,false);
+                xmlhttp.setRequestHeader("Content-Type", "application/json");
+                xmlhttp.send();
+
+
+
+
+
+            });
+            return false;
+
+        });
+
+
+
+
+        // function showHint(str) {
+        //     var obj;
+        //     if (str.length != 13) {
+        //         document.getElementById("title").innerHTML = "";
+        //         return;
+        //     } else {
+        //         var xmlhttp = new XMLHttpRequest();
+        //         xmlhttp.onreadystatechange = function() {
+        //             if (this.readyState == 4 && this.status == 200) {
+        //                 console.log(this.response);
+        //                 obj = JSON.parse(this.response);
+        //                 console.log(obj);
+        //                 document.getElementById("title").value = obj.title;
+        //                 document.getElementById("subtitle").value = obj.subtitle;
+        //                 document.getElementById("publication").value = obj.publication;
+        //
+        //                 document.getElementById("start").value = obj.publishedDate;
+        //                 document.getElementById("publication").value = obj.publication;
+        //                 document.getElementById("thumbnail").src = obj.thumbnail;
+        //                 document.getElementById("language").value = obj.language;
+        //                 document.getElementById("authors").value = obj.authors;
+        //                 document.getElementById("discription").value = obj.description;
+        //
+        //             }
+        //         };
+        //         xmlhttp.open("GET", "http://localhost/bookworm-middleware/code/v1/get_book_data_from_isbn.php?isbn=" + str, true);
+        //         xmlhttp.setRequestHeader("Content-type", "application/json");
+        //         xmlhttp.send();
+        //     }
+        //
+        // }
+
+    </script>
+ 
+</head>
+<body>
+    <!-- Header -->
+    <div class="jumbotron jumbotron-fluid jumbotron-fluid-bgcolor">
+        <div class="container">
+            <i class="fa fa-book"></i>
+            <h2 class="white-custom">Welcome to Campus Library</h2>
+        </div>
+    </div>
+
+    <!--Navbars-->
+    <div class="container-fluid container-fluid-custom container-fluid-bgcolor" id="nav-header" onscroll="myFunction()">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-sm-9-custom">
+                    <nav class="navbar navbar-expand-lg navbar-custom-1" id="navbar-default">
+                        <button class="navbar-toggler"> </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Books </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-book.html">New</a>
+                                    <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-book.html">Update</a>
+                                    <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-book.html">Delete</a>
+                                    <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-book.html">Search</a>
+                                </div>
+                           </li>
+                           <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> User </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" aria-labelledby="navbarDropdown" href="http://localhost/bookworm-middleware/UI/add-user.html">New</a>
+                                    <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/update-user.html">Update</a>
+                                    <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/delete-user.html">Delete</a>
+                                    <a class="dropdown-item" href="http://localhost/bookworm-middleware/UI/search-user.html">Search</a>
+                                    
+                                </div>
+                           </li>
+                           <li class="nav-item">
+                               <a class="nav-link" href="http://localhost/bookworm-middleware/UI/checkIn-checkOut.html">Check-in/Check-out</a>
+                           </li>
+                           
+                           <li class="nav-item">
+                                <a class="nav-link" href="http://localhost/bookworm-middleware/UI/reservation.html">Book Reservation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="http://localhost/bookworm-middleware/UI/manage.html"> Manage </a>
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/bookworm-middleware/UI/aboutUs.html">About Us</a>
+                            </li>
+                         </ul>
+                        </div>
+                     </nav>
+                 </div>
+            <div class="col-sm-3 col-sm-3-custom">
+                <nav class="navbar navbar-expand-lg navbar-custom-2" id="navbar-default">
+                    <ul class="navbar-nav">
+                        <li class="nav-item logout-custom">
+                            <a class="nav-link disabled" href="#">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!--ADD Book form-->
+    <div class="container-fluid">
+        <div class="container container-custom">
+            <h2 class="mt-3 pt-3">Add Book</h2>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div id="add_book_form" class="add-book-custom">
+                        <form id="addbook" action="">
+                            
+                            <div class="form-group">
+                                <label for="isbn">ISBN</label>
+                                <input type="number" class="form-control mt-3 mb-3" required id="isbn" name="isbn" onkeyup="showHint(this.value)" >
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control mt-3 mb-3" required id="title" name="title">
+                            </div>
+                            <div class="form-group">
+                                <label for="subtitle">Subtitle</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="subtitle" name="subtitle">
+                            </div>
+                            <div class="form-group">
+                                <label for="publication">Publication</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="publication" name="publication">
+                            </div>
+                            <div class="form-group">
+                                <label for="cnt">Book count</label>
+                                <input type="number" class="form-control mt-3 mb-3" id="cnt" name="cnt" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="start">Publication date</label>
+                                <input type="date" id="start" class="mt-3 mb-3" name="published_date" value="2018-07-22">
+                            </div>
+                            <select name="type" id="type" class="custom-select mt-3 mb-3">
+                                <option value="0" selected>Type</option>
+                                <option value="1">Purchase</option>
+                                <option value="2">Donate</option>
+                                <option value="3">Loan</option>
+                            </select>
+                            <div class="form-group">
+                                <label for="discription">Description</label>
+                                <textarea class="form-control mt-3 mb-3" rows="5" id="discription" name="description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="language">Language</label>
+                                <input type="text" class="form-control mt-3 mb-3" id="language" name="language">
+                            </div>
+                            <div class="form-group">
+                                <label for="authors">Authors</label>
+                                <input type="text" class="form-control  mt-3 mb-3" required id="authors" onchange="showExistingAuthors(this.value);" name="authors" value=" ">
+                                <input type="text" class="form-control" hidden id="e_author" name="e_author" >
+                                <input type="text" class="form-control" hidden id="n_author" name="n_author" >      
+                            </div>
+                            <div class="form-group">
+                                <label for="page_count">Page Count</label>
+                                <input type="text" class="form-control mt-3 mb-3"  id="page_count" name="page_count" > 
+                            </div>
+                            <button type="reset" class="btn btn-custom mt-3 mb-3">Clear</button>
+                            <button type="submit" id="submit" name="submit" class="btn btn-custom mt-3 mb-3">Save</button>
+                         </form>
+                     </div>
+                </div>
+                <div class="col-sm-6">
+                    <img  id="thumbnail" name="thumbnail" class="img-lookup-custom" src="images/book.png">
+                </div>
+            </div>
+        </div>     
+    </div>
+       
+
+    <!-- Footer -->
+
+            <footer>
+                <p class="p-footer mt-3">@2019 All rights resevered by Library system</p>
+            </footer>
+        
+</body>
+</html>
